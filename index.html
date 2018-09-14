@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="description" content="#войтивайти">
+  <title>#войтивайти</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <style type='text/css'>
+    body {
+        background-color: #6B7157;
+        background-image: url('minsk-sf.jpg');
+        background-repeat: no-repeat;
+    }
+    h1 {
+        color: white;
+    }
+    .post {
+        margin: auto;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        margin-bottom: 1em;
+        max-width: 750px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 1em;
+    }
+    .post-frame {
+    }
+    .btn-wide {
+        width: 100%;
+    }
+    .buttons-block {
+        display: flex;
+        background-color: white;
+        border-radius: 10px;
+        padding: 1em;
+        max-width: 750px;
+        width: 100%;
+        margin: auto;
+    }
+    #supporters {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+    .supporter {
+        margin-bottom: 1em;
+    }
+  </style>
+</head>
+
+<body>
+     <div class="container">
+      <div class="py-5 text-center">
+          <h1>#ВОЙТИВАЙТИ</h1>
+      </div>
+
+      <div class="row">
+          <div class="post text-center">
+            <div class="post-frame">
+                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fmikita.mikado%2Fposts%2F10156564430169592" width="552" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="buttons-block">
+              <div class="col">
+                  <a href="https://goo.gl/forms/akfho5SKlE1awN682" target="_blank"><button type="button" class="btn btn-lg btn-wide btn-outline-success">Apply</button></a>
+              </div>
+              <div class="col">
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScJHM05fZRT0UXaFFVdsmGstNBOIetDzbis1svqK072UV3_FQ/viewform" target="_blank"><button type="button" class="btn btn-lg btn-wide btn-outline-info">Support</button></a>
+              </div>
+          </div>
+      </div>
+
+      <div class="py-5 text-center">
+          <h1>SUPPORTERS</h1>
+          <pre>(only visible when you're logged in to LinkedIn)</pre>
+      </div>
+
+      <div class="row" id="supporters">
+      </div>
+
+     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $.get("https://yaa02tnlh3.execute-api.us-east-1.amazonaws.com/prod/donor_list", (data) => {
+            data.sort((a, b) => {return a['amount'] < b['amount']});
+            $(data).each((key, value) => {
+                $("#supporters").append(`<div class="col supporter"><script type="IN/MemberProfile" data-id="${value.profileurl}" data-format="inline" data-related="false"></` + `script></div>`);
+            });
+            setTimeout(() => {
+                IN.parse(document.getElementById("supporters"));
+            }, 500);
+        });
+    </script>
+</html>
